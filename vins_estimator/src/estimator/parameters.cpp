@@ -216,13 +216,20 @@ void readParameters(std::string config_file)
             ROS_WARN(" fix extrinsic param ");
 
         cv::Mat cv_T;
-        fsSettings["body_T_cam0"] >> cv_T;
-        Eigen::Matrix4d T;
-        cv::cv2eigen(cv_T, T);
-        RIC[0] = T.block<3, 3>(0, 0);
-        TIC[0] = T.block<3, 1>(0, 3);
+        //fsSettings["body_T_cam0"] >> cv_T;
+        //Eigen::Matrix4d T;
+        //cv::cv2eigen(cv_T, T);
+        //RIC[0] = T.block<3, 3>(0, 0);
+        RIC[0] << 9.9970152931501111e-01, -2.4334070146456496e-02,
+       -2.1691738831616180e-03,
+       2.4313045731037753e-02, 9.9966167038360143e-01,
+       -9.2423250942725247e-03,
+       2.3933433745542093e-03, 9.1868273073508668e-03,
+       9.9995493604037800e-01;
+        //TIC[0] = T.block<3, 1>(0, 3);
+        TIC[0] << 0,0,0;
     } 
-    
+
     NUM_OF_CAM = fsSettings["num_of_cam"];
     printf("camera number %d\n", NUM_OF_CAM);
 
@@ -256,11 +263,18 @@ void readParameters(std::string config_file)
         CAM_NAMES[1] = cam1Path;
 
         cv::Mat cv_T;
-        fsSettings["body_T_cam1"] >> cv_T;
-        Eigen::Matrix4d T;
-        cv::cv2eigen(cv_T, T);
-        RIC[1] = T.block<3, 3>(0, 0);
-        TIC[1] = T.block<3, 1>(0, 3);
+        //fsSettings["body_T_cam1"] >> cv_T;
+        //Eigen::Matrix4d T;
+        //cv::cv2eigen(cv_T, T);
+        //RIC[1] = T.block<3, 3>(0, 0);
+        RIC[1] <<9.9985740148420199e-01, 1.3221990047149310e-02,
+       1.0505031006729837e-02,
+       1.3173059971592354e-02, -9.9990212239267229e-01,
+       4.7133985207440873e-03,
+       1.0566323307759515e-02, -4.5743429936555748e-03,
+       -9.9993371190191072e-01;
+        //TIC[1] = T.block<3, 1>(0, 3);
+        TIC[1] << 0,0,1;
         fsSettings["publish_rectify"] >> PUB_RECTIFY;
     }
 
