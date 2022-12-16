@@ -6,12 +6,13 @@ set(CMAKE_CXX_FLAGS "-std=c++14 -fopenmp")
 #-DEIGEN_USE_MKL_ALL")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
 
-set(ENABLE_BACKWARD false)
+set(ENABLE_BACKWARD true)
 set(ENABLE_VWORKS false)
 set(DETECT_CUDA true)
 SET("OpenCV_DIR"  "/usr/local/share/OpenCV/")
 
 find_package(OpenMP REQUIRED)
+#add_subdirectory(/home/zy/ros_ws/vins_fisheye_ws/src/VINS-Fisheye/vins_estimator/backward-cpp)
 
 find_package(catkin REQUIRED COMPONENTS
     message_generation
@@ -165,7 +166,10 @@ target_link_libraries(fisheyeNode_lib ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Visio
 #target_link_libraries(vins_node vins_lib estimator_lib vins_frontend stereo_depth vins_factors_lib vins_params_lib)
 
 add_executable(vins_node_fisheye src/rosNodeFisheye.cpp)
+#target_include_directories(vins_node_fisheye PUBLIC "${PROJECT_SOURCE_DIR}/backward-cpp")
+target_include_directories(vins_node_fisheye PUBLIC "/home/zy/ros_ws/vins_fisheye_ws/src/backward-cpp")
 target_link_libraries(vins_node_fisheye vins_lib fisheyeNode_lib estimator_lib vins_frontend stereo_depth vins_factors_lib vins_params_lib)
 
 add_library(vins_nodelet_lib src/rosNodelet.cpp)
+target_include_directories(vins_nodelet_lib PUBLIC "/home/zy/ros_ws/vins_fisheye_ws/src/backward-cpp")
 target_link_libraries(vins_nodelet_lib vins_lib fisheyeNode_lib estimator_lib vins_frontend stereo_depth vins_factors_lib vins_params_lib OpenMP::OpenMP_CXX)
