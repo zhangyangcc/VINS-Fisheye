@@ -186,10 +186,10 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
               << tmp_Q.w() << ","
               << tmp_Q.x() << ","
               << tmp_Q.y() << ","
-              << tmp_Q.z() << ","
-              << estimator.Vs[WINDOW_SIZE].x() << ","
-              << estimator.Vs[WINDOW_SIZE].y() << ","
-              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+              << tmp_Q.z() << "," << endl;
+              //<< estimator.Vs[WINDOW_SIZE].x() << ","
+              //<< estimator.Vs[WINDOW_SIZE].y() << ","
+              //<< estimator.Vs[WINDOW_SIZE].z() << "," << endl;
         foutC.close();
         Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
         printf("time: %f, t: %5.3f %5.3f %5.3f q: %4.2f %4.2f %4.2f %4.2f td: %3.1fms\n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
