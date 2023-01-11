@@ -10,14 +10,15 @@ imu_topic: "/dji_sdk_1/dji_sdk/imu"
 # imu_topic: "/dji_sdk_1/dji_sdk/imu"
 image0_topic: "/stereo/left/image_raw"
 image1_topic: "/stereo/right/image_raw"
+
 output_path: "/home/zy/ros_ws/omni_swarm_ws/output/vins_fisheye/"
 
 depth_config: "depth_cuda.yaml"
 cam0_calib: "up.yaml"
 cam1_calib: "down.yaml"
-image_width: 600 # For fisheye, this indicate the flattened image width; min 100; 300 - 500 is good for vins  # use in undistort function
+image_width: 600 # For fisheye, this indicate the flattened image width; min 100; 300 - 500 is good for vins
 image_height: 200
-show_width: 1920 # It was used only in drawTrackFisheye function. This value has no effect on the results.
+show_width: 1920
 
 fisheye_fov: 235
 
@@ -26,8 +27,8 @@ enable_down_top: 1
 enable_up_side: 1
 enable_down_side: 1  
 enable_rear_side: 0
-thres_outlier : 5.0 # It is just a threshold and only used in class estimator.
-tri_max_err: 3.0 # It is just a threshold and only used in class feature manager.
+thres_outlier : 5.0
+tri_max_err: 3.0
 # Extrinsic parameter between IMU and Camera.
 estimate_extrinsic: 0      # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
                         # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
@@ -36,12 +37,11 @@ body_T_cam0: !!opencv-matrix
    rows: 4
    cols: 4
    dt: d
-   data: [ 9.9970152931501111e-01, -2.4334070146456496e-02,
-       -2.1691738831616180e-03, 2.4271285208706174e-02,
-       2.4313045731037753e-02, 9.9966167038360143e-01,
-       -9.2423250942725247e-03, 4.6146656309142874e-03,
-       2.3933433745542093e-03, 9.1868273073508668e-03,
-       9.9995493604037800e-01, 8.9835134676070530e-02, 0., 0., 0., 1. ]
+   data: [0.0148655429818, -0.999880929698, 0.00414029679422, -0.0216401454975,
+           0.999557249008, 0.0149672133247, 0.025715529948,  -0.064676986768,
+           -0.0257744366974, 0.00375618835797, 0.999660727178, 0.00981073058949,
+           0, 0, 0, 1]
+
 body_T_cam1: !!opencv-matrix
    rows: 4
    cols: 4
@@ -71,7 +71,7 @@ enable_depth: 0 # If estimate depth cloud; only available for dual fisheye now
 rgb_depth_cloud: -1 # -1: point no texture,  0 depth cloud will be gray, 1 depth cloud will be colored;
 #Note that textured and colored depth cloud will slow down whole system
 
-depth_estimate_baseline: 0.05 # It is just a threshold and only used in class feature manager.
+depth_estimate_baseline: 0.05
 top_cnt: 30
 side_cnt: 100
 max_solve_cnt: 100 # Max Point for solve; highly influence performace
